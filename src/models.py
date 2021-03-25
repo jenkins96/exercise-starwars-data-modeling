@@ -15,6 +15,7 @@ class User(Base):
     lastName = Column(String(250), nullable=False)
     username = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
+    password = Column(String(250), nullable=False)
     
 class Planets(Base):
     __tablename__ = 'planets'
