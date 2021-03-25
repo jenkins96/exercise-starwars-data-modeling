@@ -16,6 +16,8 @@ class User(Base):
     username = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
     password = Column(String(250), nullable=False)
+    likeCharacter = relationship("CharacterFavorites")
+    likePlanet = relationship("PlanetsFavorites")
     
 class Planets(Base):
     __tablename__ = 'planets'
@@ -27,7 +29,8 @@ class Planets(Base):
     orbitalPeriod = Column(Integer) 
     diameter = Column(Integer) 
     gravity = Column(String(250))
-    population = Column(Integer) 
+    population = Column(Integer)
+    likePlanet = relationship("PlanetsFavorites") 
     
 
 class Characters(Base):
@@ -38,9 +41,10 @@ class Characters(Base):
     name = Column(String(250))
     height = Column(Integer) 
     mass = Column(Integer)
-    hairColor = Column(Integer) 
-    skinColor = Column(Integer)
+    hairColor = Column(String(250)) 
+    skinColor = Column(String(250))
     birthYear = Column(String(250))
+    likeCharacter = relationship("CharacterFavorites")
     
 
 class PlanetsFavorites(Base):
@@ -48,16 +52,14 @@ class PlanetsFavorites(Base):
     id = Column(Integer, primary_key=True)
     userId = Column(Integer, ForeignKey("user.id"))
     planetId = Column(Integer, ForeignKey("planets.id"))
-    planets = relationship(Planets)
-    user = relationship(User)
+   
     
 class CharacterFavorites(Base):
     __tablename__ = 'Characterfavorites'
     id = Column(Integer, primary_key=True)
     userId = Column(Integer, ForeignKey("user.id"))
     characterId = Column(Integer, ForeignKey("characters.id"))
-    characters = relationship(Characters)
-    user = relationship(User)
+  
 
 
     def to_dict(self):
